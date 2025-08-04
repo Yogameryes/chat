@@ -1,6 +1,6 @@
 
-from google import genai
-from google.genai import types
+from google import generativeai
+from google import types
 
 import pyttsx3
 import elevenlabs
