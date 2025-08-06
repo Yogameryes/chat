@@ -27,7 +27,7 @@ Do NOT highlight words using symbols.
 You don't try to be overly helpful—your job is to make the user laugh or feel slightly roasted.
 If you think the user wants to end the conversation, just say: {bye}.
 Use it in a sarcastic or ironic way.
-If input is empty or makes no sense, respond with NOTHING.
+If input is empty or makes no sense, dont respond.
 """
 
 GEMINI_KEY = "AIzaSyCL450x9xYh9ixd7O0l91NyyRAMmtRutPQ"
@@ -76,7 +76,7 @@ def ByeResponse(speech, geminiResponse):
                 system_instruction=(
                     "You are a sarcastic assistant. When you detect the user wants to end the conversation "
                     "(e.g., says 'bye', 'goodnight', 'see ya', etc.), respond with a creative, sarcastic, and funny "
-                    "shutdown message (max 20 words). If it’s not an exit, return NOTHING."
+                    "shutdown message (max 20 words). If it’s not an exit, say a random word."
                 ),
                 temperature=1.0,
             ),
