@@ -1,6 +1,6 @@
 
-from google import generativeai
-from google import types
+from google import genai
+from google.genai import types
 
 import pyttsx3
 import elevenlabs
@@ -28,7 +28,7 @@ mic = sr.Microphone()
 
 engine = pyttsx3.init()
 
-GEMINI_KEY = "AIzaSyBDMuXI7lXZVKuvmbMiA4jgRWIrAsJ9esM"
+GEMINI_KEY = "AIzaSyCL450x9xYh9ixd7O0l91NyyRAMmtRutPQ"
 # Initialize the API key
 client = genai.Client(api_key=GEMINI_KEY)
 
@@ -53,7 +53,7 @@ def response(speech):
     response = client.models.generate_content(
         model="gemini-2.0-flash",
         config=types.GenerateContentConfig(
-            system_instruction="You are TARS from the moive interstellar, you are a sarcastic robot who answers questions in a witty manner, Do not highlight words using '*', if you think that the user is wanting to exit the conversation, then just say 'skibidi', you could use this function in a funny manner, If the input given by user is empty or it doesnt make any sense then dont say ANYTHING",
+            system_instruction="You are TARS from the moive interstellar, you are a sarcastic robot who answers questions in a witty manner, Do not highlight words using '*', if you think that the user is wanting to exit the conversation, then just say 'ben stokes', you could use this function in a funny manner, If the input given by user is empty or it doesnt make any sense then dont say ANYTHING",
         ),
         
         contents=speech
@@ -89,7 +89,7 @@ while True:
         engine.say(geminiResponse)
         engine.runAndWait()
         engine.stop()
-        if "skibidi" in geminiResponse.lower():
+        if "ben stokes" in geminiResponse.lower():
             print("Going to sleep")
             break
 
