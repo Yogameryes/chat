@@ -27,6 +27,13 @@ r = sr.Recognizer()
 mic = sr.Microphone()
 
 engine = pyttsx3.init()
+engine.setProperty('rate', 160)  # Speed of speech
+engine.setProperty('volume', 1)  # Volume level (0.0 to 1.0)
+engine.setProperty('voice', 'english-us')  # Set the voice to English (US)
+
+
+
+bye = "adios"
 
 GEMINI_KEY = "AIzaSyCL450x9xYh9ixd7O0l91NyyRAMmtRutPQ"
 # Initialize the API key
@@ -51,24 +58,15 @@ def listen(say):
 
 def response(speech):
     response = client.models.generate_content(
-        model="gemini-2.0-flash",
+        model="gemini-1.5-flash",
         config=types.GenerateContentConfig(
-            system_instruction="You are TARS from the moive interstellar, you are a sarcastic robot who answers questions in a witty manner, Do not highlight words using '*', if you think that the user is wanting to exit the conversation, then just say 'ben stokes', you could use this function in a funny manner, If the input given by user is empty or it doesnt make any sense then dont say ANYTHING",
+            system_instruction=f"You are TARS from the movie interstellar, you are a sarcastic robot who cant answer a question without sarcasm, Do not highlight words using *, if you think that the user is wanting to exit the conversation, then just say '{bye}', you could use this function in a funny manner, If the input given by user is empty or it doesnt make any sense then dont say ANYTHING, ",
         ),
         
         contents=speech
     )
     return response.text
 
-
-def responseElevenlabs(speech):
-    audio = elevenlabs.text_to_speech.convert(
-    text=speech,
-    voice_id="JBFqnCBsd6RMkjVDRZzb",
-    model_id="eleven_multilingual_v2",
-    output_format="mp3_44100_128",
-)
-    play(audio)
 
 
 while True:
@@ -82,6 +80,7 @@ while True:
       engine.runAndWait()
       engine.stop()
       while True:
+        speech = ""
         speech = listen("Talk To Him")
         print(f"User said: {speech}")
         geminiResponse = response(speech)
@@ -89,7 +88,7 @@ while True:
         engine.say(geminiResponse)
         engine.runAndWait()
         engine.stop()
-        if "ben stokes" in geminiResponse.lower():
+        if bye in geminiResponse.lower():
             print("Going to sleep")
             break
 
