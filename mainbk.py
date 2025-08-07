@@ -8,7 +8,6 @@ import os
 import random
 
 
-# Voice & mic setup
 r = sr.Recognizer()
 mic = sr.Microphone()
 
@@ -17,7 +16,6 @@ engine.setProperty('rate', 160)
 engine.setProperty('volume', 1)
 engine.setProperty('voice', 'english-us')
 
-# Special marker to detect when Gemini should say something funny while shutting down
 bye = "<<<SHUTDOWN>>>"
 
 instruction1 = f"""
@@ -88,7 +86,7 @@ def ByeResponse(speech, geminiResponse):
         return "Shutting down... like my will to debug this again."
 
 
-# ========== MAIN LOOP ==========
+# ========== LOOP ==========
 while True:
     speech = listen("Wake Him Up...")
     print(f"User said: {speech}")
